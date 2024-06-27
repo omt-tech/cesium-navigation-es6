@@ -19,7 +19,7 @@ import NavigationControl from "./NavigationControl";
  *
  * @param {Terria} terria The Terria instance.
  */
-var ResetViewNavigationControl = function (terria) {
+var ResetViewNavigationControl = function (terria, defaultResetView) {
   NavigationControl.apply(this, arguments);
 
   /**
@@ -93,31 +93,31 @@ ResetViewNavigationControl.prototype.resetView = function () {
     const duration = this.terria.options.duration
       ? this.terria.options.duration
       : 3;
-    if (this.terria.options.defaultResetView) {
+    if (defaultResetView) {
       const orientation = this.terria.options.orientation
         ? this.terria.options.orientation
         : {
             heading: CesiumMath.toRadians(5.729578),
           };
       if (
-        this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView instanceof Cartographic
+        defaultResetView &&
+        defaultResetView instanceof Cartographic
       ) {
         camera.flyTo({
           destination: scene.globe.ellipsoid.cartographicToCartesian(
-            this.terria.options.defaultResetView
+            defaultResetView
           ),
           orientation,
           duration,
         });
       } else if (
-        this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView instanceof Rectangle
+        defaultResetView &&
+        defaultResetView instanceof Rectangle
       ) {
         try {
-          Rectangle.validate(this.terria.options.defaultResetView);
+          Rectangle.validate(defaultResetView);
           camera.flyTo({
-            destination: this.terria.options.defaultResetView,
+            destination: defaultResetView,
             orientation,
             duration,
             complete: this.resetSuccess,
@@ -128,12 +128,12 @@ ResetViewNavigationControl.prototype.resetView = function () {
           );
         }
       } else if (
-        this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView.isCesium3DTileset 
+        defaultResetView &&
+        defaultResetView.isCesium3DTileset 
       ) {
         try {
           this.terria.zoomTo(
-            this.terria.options.defaultResetView,
+            defaultResetView,
           );
         } catch (e) {
           console.log(
@@ -141,19 +141,30 @@ ResetViewNavigationControl.prototype.resetView = function () {
           );
         }
       } else if (
-        this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView instanceof Entity 
+        defaultResetView &&
+        defaultResetView instanceof Entity 
       ) {
         try {
           this.terria.zoomTo(
-            this.terria.options.defaultResetView,
+            defaultResetView,
           );
         } catch (e) {
           console.log(
             "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Entity is invalid!"
           );
-          }
         }
+      } else if (
+        defaultResetView &&
+        defaultResetView.destination &&
+        defaultResetView.orientation 
+      ) {
+        camera.flyTo({
+          destination: defaultResetView.destination,
+          orientation: defaultResetView.orientation,
+          duration,
+          complete: this.resetSuccess,
+        });
+      }
     } else if (typeof camera.flyHome === "function") {
       camera.flyHome(1);
     } else {

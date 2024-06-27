@@ -18,7 +18,8 @@ var NavigationViewModel = function (options) {
   if (!defined(this.controls)) {
     this.controls = [
       new ZoomNavigationControl(this.terria, true),
-      new ResetViewNavigationControl(this.terria),
+      new ResetViewNavigationControl(this.terria, this.terria.options.defaultResetView),
+      new ResetViewNavigationControl(this.terria,  this.terria.options.defaultResetCameraView),
       new ZoomNavigationControl(this.terria, false)
     ]
   }
