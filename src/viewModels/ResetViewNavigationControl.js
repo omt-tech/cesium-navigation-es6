@@ -56,8 +56,7 @@ var ResetViewNavigationControl = function (terria) {
    * Gets or sets the CSS class of the control. This property is observable.
    * @type {String}
    */
-  this.cssClass =
-    "navigation-control-icon-reset" + terria.options.enableReset ? "" : "hide";
+  this.cssClass = "navigation-control-icon-reset";
 };
 
 ResetViewNavigationControl.prototype = Object.create(
