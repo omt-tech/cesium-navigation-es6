@@ -193,7 +193,9 @@ NavigationViewModel.prototype.show = function (container) {
   const resetSvg = this.terria.options.resetSvg;
   const zoomInSvg = this.terria.options.zoomInSvg;
   const zoomOutSvg = this.terria.options.zoomOutSvg;
-  const hideReset = terria.options.enableReset ? "" : ' style="display:none;"';
+  const hideReset = this.terria.options.enableReset
+    ? ""
+    : ' style="display:none;"';
 
   const navigationControlsDivPublicStr =
     divCloseStr +

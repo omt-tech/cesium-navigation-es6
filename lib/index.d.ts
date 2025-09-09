@@ -18,7 +18,7 @@ declare module "cesium-navigation-es6" {
     zoomInTooltip?: string;
     //修改缩小按钮的tooltip
     zoomOutTooltip?: string;
-    enableReset?: string;
+    enableReset?: boolean;
 
     compassOuterRingSvg?: string;
     compassRotationMarkerSvg?: string;
