@@ -193,7 +193,6 @@ NavigationViewModel.prototype.show = function (container) {
   const resetSvg = this.terria.options.resetSvg;
   const zoomInSvg = this.terria.options.zoomInSvg;
   const zoomOutSvg = this.terria.options.zoomOutSvg;
-  const hideReset = this.enableReset ? "" : ' style="display:none;"';
 
   const navigationControlsDivPublicStr =
     divCloseStr +
@@ -208,9 +207,7 @@ NavigationViewModel.prototype.show = function (container) {
     "  <!-- /ko -->" +
     "  <!-- ko ifnot: $data.svgIcon -->" +
     "  <!-- ko if: $data.resetSvg -->" +
-    '  <div class="navigation-control-icon-svg reset"' +
-    hideReset +
-    ' onclick="' +
+    '  <div class="navigation-control-icon-svg reset" onclick="' +
     this.terria.options.reset +
     '">' +
     resetSvg +

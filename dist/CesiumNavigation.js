@@ -25,7 +25,6 @@ CesiumNavigation.prototype.terria = undefined;
 CesiumNavigation.prototype.container = undefined;
 CesiumNavigation.prototype._onDestroyListeners = undefined;
 CesiumNavigation.prototype._navigationLocked = false;
-CesiumNavigation.prototype.disableReset = false;
 
 CesiumNavigation.prototype.setNavigationLocked = function (locked) {
   this._navigationLocked = locked;
