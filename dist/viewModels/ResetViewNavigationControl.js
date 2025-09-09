@@ -5,7 +5,7 @@ import {
   Cartographic,
   Math as CesiumMath,
   Cesium3DTileset,
-  Entity
+  Entity,
 } from "cesium";
 import svgReset from "../svgPaths/svgReset";
 import NavigationControl from "./NavigationControl";
@@ -60,7 +60,7 @@ var ResetViewNavigationControl = function (terria) {
 };
 
 ResetViewNavigationControl.prototype = Object.create(
-  NavigationControl.prototype
+  NavigationControl.prototype,
 );
 
 ResetViewNavigationControl.prototype.setNavigationLocked = function (locked) {
@@ -105,7 +105,7 @@ ResetViewNavigationControl.prototype.resetView = function () {
       ) {
         camera.flyTo({
           destination: scene.globe.ellipsoid.cartographicToCartesian(
-            this.terria.options.defaultResetView
+            this.terria.options.defaultResetView,
           ),
           orientation,
           duration,
@@ -124,36 +124,32 @@ ResetViewNavigationControl.prototype.resetView = function () {
           });
         } catch (e) {
           console.log(
-            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium rectangle is  invalid!"
+            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium rectangle is  invalid!",
           );
         }
       } else if (
         this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView.isCesium3DTileset 
+        this.terria.options.defaultResetView.isCesium3DTileset
       ) {
         try {
-          this.terria.zoomTo(
-            this.terria.options.defaultResetView,
-          );
+          this.terria.zoomTo(this.terria.options.defaultResetView);
         } catch (e) {
           console.log(
-            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium tileset is invalid!"
+            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium tileset is invalid!",
           );
         }
       } else if (
         this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView instanceof Entity 
+        this.terria.options.defaultResetView instanceof Entity
       ) {
         try {
-          this.terria.zoomTo(
-            this.terria.options.defaultResetView,
-          );
+          this.terria.zoomTo(this.terria.options.defaultResetView);
         } catch (e) {
           console.log(
-            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Entity is invalid!"
+            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Entity is invalid!",
           );
-          }
         }
+      }
     } else if (typeof camera.flyHome === "function") {
       camera.flyHome(1);
     } else {
